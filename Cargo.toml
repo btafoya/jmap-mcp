@@ -2,5 +2,25 @@
 name = "jmap-mcp"
 version = "0.1.0"
 edition = "2024"
+rust-version = "1.94"
+description = "MCP server (stdio) for a JMAP mailbox: search, read, draft and send mail from an AI agent"
+license = "MIT"
+repository = "https://github.com/btafoya/jmap-mcp"
+readme = "README.md"
+keywords = ["mcp", "jmap", "email", "agent"]
+categories = ["command-line-utilities", "email"]
 
 [dependencies]
+anyhow = "1.0.105"
+reqwest = { version = "0.13.5", default-features = false, features = ["json", "rustls"] }
+rmcp = { version = "3.11.0", features = ["server", "transport-io", "macros", "schemars"] }
+schemars = "1.2.3"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+thiserror = "2.0.21"
+tokio = { version = "1.54.1", features = ["rt-multi-thread", "macros", "sync", "time", "io-std"] }
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
+
+[dev-dependencies]
+axum = "0.8.9"

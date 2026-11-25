@@ -5,6 +5,7 @@ Rust MCP server for a JMAP mailbox, own tool design. Reference: the TS server `b
 ## Decisions
 - Backend: postmark2jmap (`~/projects/postmarkapp2jmapserver`) is the only target. Stalwart is not a target and is not tested. Code to RFC 8620/8621 and take server specifics from postmark2jmap's `src/jmap.rs`, `src/jmap_mail.rs`, `src/outbound.rs`.
 - Auth: Bearer API token. `JMAP_URL`, `JMAP_TOKEN`. postmark2jmap refuses Basic for 2FA accounts and superadmins and takes the account password, so Basic is not used. No auth trait until hosted mode exists. Refuse an `http://` URL unless the host is loopback, so the token never crosses the network in clear.
+- Read-only by default. Writes need `JMAP_ALLOW_WRITE=true` or the `--allow-write` flag. Without it only `jmap_list_mailboxes`, `jmap_search_emails`, `jmap_get_email` and `jmap_get_thread` are listed; the other eight are not in `tools/list` and are refused if called anyway. Staging a draft is a write. The startup log says which mode is on.
 - Transport: stdio only. Logs go to stderr. Streamable HTTP later.
 - Tool surface: own design, not tied to langmail-mcp's snapshot. Names carry the `jmap_` prefix.
 - Tools: `jmap_list_mailboxes`, `jmap_search_emails`, `jmap_get_email`, `jmap_get_thread`, `jmap_move_emails`, `jmap_mark_emails`, `jmap_trash_emails`, `jmap_create_draft`, `jmap_update_draft`, `jmap_delete_draft`, `jmap_send_draft`, `jmap_reply_to_message`.
@@ -36,6 +37,7 @@ No stages. The whole tool set is built in a single pass and verified once at the
 
 ## Verification (once, at the end)
 - Unit tests for the JMAP client and each tool against an in-process fake JMAP server built from the recorded fixtures (request shape, pagination, chunking, error mapping).
+- Read-only mode: write tools absent from `tools/list`, and each write tool refuses when called directly.
 - Send guard tests: concurrent duplicate sends submit once; timeout then retry is refused as outcome-unknown; `forbiddenFrom` releases; replay returns the recorded result; a staged reply and `send_draft` of it do not race.
 - TLC passes `AtMostOncePerRequest`, `AtMostOncePerEmail`, `TruthfulResults`.
 - Whole tool set run over stdio against the local postmark2jmap, including a queued (undeliverable-domain) send; each server quirk found becomes a test.

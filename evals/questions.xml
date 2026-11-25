@@ -1,0 +1,43 @@
+<evaluation>
+  <!-- Seeded by evals/seed.sh (bob@example.com). Run read-only: no --allow-write. Re-seed before each run. -->
+  <qa_pair>
+    <question>What is the booking reference in the flight confirmation email?</question>
+    <answer>QX7R2L</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>In which room is the async Rust meetup held?</question>
+    <answer>Cedar</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>How many unread emails are in the Inbox?</question>
+    <answer>7</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>The supplier's invoice has a later reminder in the same conversation. What late fee does the reminder mention? Give the amount with its currency symbol.</question>
+    <answer>$25</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>An operations alert reports a disk above its threshold. What is the host name?</question>
+    <answer>db-02</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Who is copied (Cc) on the original Project Orion kickoff email? Give the email address.</question>
+    <answer>dave@example.com</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Who, by full name, replied in the Project Orion conversation that a feature is dropped from phase one?</question>
+    <answer>Dave Lin</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What budget was approved in the Project Orion kickoff email? Give it as written.</question>
+    <answer>$85k</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>How many emails are in the conversation about lunch on Friday?</question>
+    <answer>2</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>What churn rate does the quarterly report give?</question>
+    <answer>2.1%</answer>
+  </qa_pair>
+</evaluation>
